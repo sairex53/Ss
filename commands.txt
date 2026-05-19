@@ -1,0 +1,25 @@
+sudo apt update && sudo apt install -y \
+  gcc \
+  gdb \
+  gdb-multiarch \
+  python3 \
+  python3-pip \
+  binutils \
+  file \
+  checksec
+
+pip3 install pwntools
+
+gcc ctf.c -o ctf \
+  -fno-stack-protector \
+  -no-pie \
+  -z execstack \
+  -w \
+  -g
+
+echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
+
+cat /proc/sys/kernel/randomize_va_space
+
+checksec --file=ctf
+
